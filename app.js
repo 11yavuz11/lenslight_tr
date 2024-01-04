@@ -1,11 +1,27 @@
 import express from 'express';
+import dotenv from 'dotenv';
+import conn from './db.js';
+import pageRoute from './routes/pageRoute.js';
+
+dotenv.config();
+
+// DB connection
+conn();
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+
+// Static files middleware
+app.use(express.static('public'));
+
+// ejs template engine
+app.set('view engine', 'ejs');
+
+
+// Routes
+app.use('/', pageRoute);
+
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
