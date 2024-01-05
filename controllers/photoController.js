@@ -29,14 +29,10 @@ const getAllPhotos = async (req, res) => {
     
         try {
             const photos =  await Photo.find();
-            res.status(200).json(
-                {
-                    status: 'success',
-                    data: {
-                        photos
-                    }
-                }
-            );
+            res.status(200).render('photos',{
+                photos,
+                link: 'photos'
+            });
         } catch (error) {
             res.status(500).json(
                 {
